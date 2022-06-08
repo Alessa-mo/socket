@@ -34,7 +34,9 @@ public class Dao {
             e.printStackTrace();
         }
     }
-
+    /**
+     * 查找用户
+     */
     public User findUser(User user){
         getAll();
         for(User users: records){
@@ -46,42 +48,5 @@ public class Dao {
         }
         return null;
     }
-    /**
-     * 返回用于model的String数组，标识名次、姓名、分数、时间
-     */
-//    @Override
-//    public String[][] printRecord(){
-//        getAll();
-//        String[][] tableData = new String[records.size()][];
-//        Collections.sort(records);
-//        for (int i=0; i<records.size(); i++){
-//            Record current = records.get(i);
-//            int minute = current.getMinute();
-//            String minuteString = String.valueOf(minute);
-//            if(minute<10){
-//                minuteString = '0'+minuteString;
-//            }
-//            String[] strings = {String.valueOf(i+1),current.getName(),String.valueOf(current.getScore()),current.getDate()+" "+current.getHour()+":"+minuteString};
-//            tableData[i] = strings;
-//        }
-//        return tableData;
-//    }
 
-//    @Override
-//    public void deleteRecord(int index){
-//        records.remove(index);
-//        //清空当前文件
-//        try {
-//            FileWriter fileWriter = new FileWriter(file);
-//            fileWriter.write("");
-//            fileWriter.flush();
-//            fileWriter.close();
-//        }catch (IOException e){
-//            e.printStackTrace();
-//        }
-//        //重新写入
-//        for(Record curRecord:records){
-//            addRecord(curRecord);
-//        }
-//    }
 }

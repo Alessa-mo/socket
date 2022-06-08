@@ -8,6 +8,7 @@ import java.net.Socket;
 
 public class MyServer {
     private String inputOrOut;
+    //采用的dao模式存储数据
     private Dao userData = new Dao();
     public static void main(String args[]){
         new MyServer();
@@ -32,6 +33,7 @@ public class MyServer {
                 }catch (IOException ex){
                     ex.printStackTrace();
                 }
+                //获取客户端消息
                 inputOrOut = in.readLine();
                 if(inputOrOut.equals("login")){
                     System.out.println("login");
@@ -46,6 +48,7 @@ public class MyServer {
         }
     }
 
+    //登录线程
     class Login implements Runnable{
         private Socket socket;
 
@@ -54,6 +57,7 @@ public class MyServer {
         }
         @Override
         public void run(){
+            //获取客户端用户信息
             ObjectInputStream ois = null;
             try {
                 ois = new ObjectInputStream(socket.getInputStream());
@@ -67,6 +71,7 @@ public class MyServer {
                 try{
                     pout = new PrintWriter(new BufferedWriter(
                             new OutputStreamWriter(socket.getOutputStream())),true);
+                    //如果客户端的用户在存储的用户找到了，则返回success,并将存储的用户返回
                     User returnUser = userData.findUser(user);
                     System.out.println("2");
                     if(returnUser!=null) {
@@ -96,6 +101,7 @@ public class MyServer {
         }
         @Override
         public void run(){
+            //获取客户端用户信息
             ObjectInputStream ois = null;
             try {
                 ois = new ObjectInputStream(socket.getInputStream());
@@ -105,8 +111,10 @@ public class MyServer {
             try {
                 System.out.println("1");
                 User user = (User)ois.readObject();
+                //将用户注册的信息存储
                 userData.addUser(user);
                 System.out.println("REGIS");
+                //向客户端返回存储成功的信息
                 PrintWriter pout = null;
                 try{
                     pout = new PrintWriter(new BufferedWriter(
