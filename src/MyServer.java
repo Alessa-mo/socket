@@ -21,6 +21,7 @@ public class MyServer {
             //创建server socket
             ServerSocket serverSocket = new ServerSocket(9999);
             System.out.println("listen port 9999");
+            new Thread(new GameServer()).start();
 
             while(true){
                 System.out.println("waiting client connect");
